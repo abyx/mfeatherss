@@ -22,6 +22,7 @@ class MainHandler(tornado.web.RequestHandler):
                 title.text = title.text.split()[2]
             else:
                 item.getparent().remove(item)
+        self.set_header('Content-Type', 'application/rss+xml; charset=utf-8')
         self.write(lxml.etree.tostring(xml))
         self.finish()
 
@@ -30,5 +31,5 @@ application = tornado.web.Application([
 ])
 
 if __name__ == '__main__':
-    application.listen(os.environ("PORT", 8888))
+    application.listen(os.environ.get("PORT", 8888))
     tornado.ioloop.IOLoop.instance().start()
