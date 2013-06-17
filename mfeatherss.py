@@ -9,7 +9,7 @@ class MainHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def get(self):
         http = tornado.httpclient.AsyncHTTPClient()
-        http.fetch("https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=mfeathers",
+        http.fetch(os.getenv("MFEATHERS_FEED"),
                 callback=self.on_response)
 
     def on_response(self, response):
